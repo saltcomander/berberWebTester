@@ -206,7 +206,8 @@ body{
   outline: 2px solid color-mix(in oklab, #fff 70%, #000 30%);
   outline-offset: 2px;
 }
-.hamburger .bar{
+.hamburger .bar
+{
   display: block;
   width: 24px;
   height: 2px;
@@ -415,4 +416,42 @@ body{
 /* (Opsiyonel) Çakışmaları kırmak için: */
 .hamburger, .hamburger .line, .hamburger::before, .hamburger::after{ 
   box-sizing: border-box;
+}
+
+
+
+
+/* ===== LOGO (El yazısı) ===== */
+.logo-hand{
+  font-family: "Dancing Script", cursive; /* tercih: Dancing Script, yoksa Pacifico */
+  font-weight: 700;                       /* Dancing Script’te 600–700 hoş durur */
+  font-size: clamp(34px, 6.2vw, 64px);    /* mobil → masaüstü ölçek */
+  line-height: 1.1;
+  color: #ffffff;
+  letter-spacing: 0.5px;                  /* script fontlarda küçük spacing iyi */
+  text-transform: none;                   /* ZATEN büyük harf yazdık, dokunma */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  /* Script yazılarda hafif parıltı; istersen kaldırabilirsin */
+  text-shadow: 0 1px 0 rgba(0,0,0,.2), 0 6px 24px rgba(0,0,0,.25);
+}
+
+/* MODA ve KUAFÖR’ü iki ton yapmak istersen */
+.logo-hand span{
+  color: var(--accent, #00d3a7); /* temadaki accent */
+}
+
+/* Header koyu zemindeyse OK; açık zeminde siyah yap */
+.header.is-light .logo-hand{
+  color: #111;
+}
+.header.is-light .logo-hand span{
+  color: #0aa389; /* açık zeminde biraz daha koyu accent */
+}
+
+/* Daha büyük bir vurgu istersen masaüstünde bir tık büyüt */
+@media (min-width: 1200px){
+  .logo-hand{ font-size: clamp(40px, 5.5vw, 72px); }
 }
