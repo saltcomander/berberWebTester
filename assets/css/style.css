@@ -600,3 +600,83 @@ body{
 }
 
 
+
+/* ===== Mobil hamburger menü: blur arka plan + sola hizalı linkler + otomatik boyut ===== */
+@media (max-width: 768px){
+
+  /* Açılan panel (dropdown) */
+  .nav-links{
+    /* Konum */
+    position: absolute;
+    top: 64px;
+    right: 8px;
+    z-index: 9998;
+
+    /* Görünürlük */
+    display: none;           /* .active olunca görünecek */
+    flex-direction: column;
+    gap: 8px;
+
+    /* Boyut: otomatik + makul sınırlar */
+    width: max-content;      /* içerik kadar genişlik */
+    min-width: 180px;        /* çok dar olmasın */
+    max-width: 260px;        /* çok geniş olmasın */
+    padding: 10px;           /* iç boşluk */
+    border-radius: 12px;
+
+    /* Arka plan + blur (iOS için -webkit- ile) */
+    background: rgba(21, 24, 33, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* Kenar ve gölge */
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+
+    /* İçerikte sola hizalama için */
+    align-items: stretch;    /* linkleri tam eninde yapar (display:block ile) */
+    text-align: left;        /* metin sola hizalı */
+  }
+
+  /* Açılınca görünür */
+  .nav-links.active{
+    display: flex;
+  }
+
+  /* Linkler */
+  .nav-links a{
+    display: block;                 /* tam satır tıklanabilirliği */
+    padding: 10px 12px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.25;
+    border-radius: 8px;
+
+    /* Okunurluk: koyu panel üzerinde hafif overlay + yazı gölgesi */
+    background: rgba(255, 255, 255, 0.04);
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+
+  /* Hover/aktif dokunuş geri bildirimi */
+  .nav-links a:hover,
+  .nav-links a:active{
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Çok uzun olursa kaydırma (güvenlik) */
+  .nav-links{
+    max-height: calc(100dvh - 84px);
+    overflow: auto;
+  }
+}
+
+/* Blur desteklemeyen tarayıcılar için daha opak fallback */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))){
+  @media (max-width: 768px){
+    .nav-links{
+      background: rgba(21, 24, 33, 0.92);
+    }
+  }
+}
+
+
