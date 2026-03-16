@@ -339,62 +339,80 @@ body{
 }
 
 
-/* ===== NAVBAR RESET (garanti görünüm) ===== */
-.header{
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(15,17,21,0.6); backdrop-filter: blur(10px);
-  border-bottom: 1px solid #232634;
-}
-.nav{ height: 64px; display: flex; align-items: center; justify-content: space-between; position: relative; }
-.logo{ font-weight: 800; color: #fff; text-decoration: none; }
-.logo span{ color: var(--accent, #00d3a7); }
-
-.nav-links{ display: flex; align-items: center; gap: 18px; }
-.nav-links .link{ color: var(--muted, #a9afc3); padding: 8px 10px; border-radius: 8px; text-decoration: none; }
-.nav-links .link:hover{ background: #1b1f2b; color: #fff; }
-
-/* HAMBURGER: pseudo-elements ile 3 çizgi */
+/* ===== HAMBURGER İKON — currentColor ile görünürlük garantisi ===== */
 .hamburger{
-  display: none;        /* desktop'ta gizle */
+  /* Desktop'ta gizlenecek, mobilde görünecek (media query aşağıda) */
+  display: none;
   position: relative;
-  width: 28px; height: 20px;
-  background: transparent; border: 0; padding: 0;
-  cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  width: 28px;           /* ikon genişliği */
+  height: 20px;          /* ikon yüksekliği */
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   z-index: 9999;
+  color: #fff;           /* varsayılan ikon rengi (dark header için) */
 }
+
+/* Çizgileri tek yerden yönet: currentColor → hamburger'in color'ına göre boyansın */
 .hamburger .line,
 .hamburger::before,
 .hamburger::after{
-  content: ""; position: absolute; left: 0; right: 0;
-  height: 2.5px; background: #fff; border-radius: 2px;
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 2.5px;
+  background: currentColor;  /* <-- kritik: ikon rengi color'dan gelir */
+  border-radius: 2px;
 }
-.hamburger .line{ top: 50%; transform: translateY(-50%); } /* orta çizgi */
-.hamburger::before{ top: 0; }   /* üst çizgi */
-.hamburger::after{ bottom: 0; } /* alt çizgi */
 
-/* Desktop görünüm */
+/* Orta çizgi */
+.hamburger .line{ top: 50%; transform: translateY(-50%); }
+
+/* Üst ve alt çizgiler */
+.hamburger::before{ top: 0; }
+.hamburger::after{ bottom: 0; }
+
+/* Desktop görünüm: hamburger gizli, yatay menü açık */
 @media (min-width: 769px){
-  .nav-links{ display: flex !important; }
   .hamburger{ display: none !important; }
+  .nav-links{ display: flex !important; align-items: center; gap: 18px; }
 }
 
-/* Mobil görünüm */
+/* Mobil görünüm: hamburger görünsün, menü kapalı başlasın */
 @media (max-width: 768px){
   .hamburger{ display: inline-block; }
 
   .nav-links{
     display: none;             /* kapalı başlar */
     position: absolute; top: 64px; right: 8px;
-    background: transparent;   /* arkası boş */
+    background: transparent;   /* arkası boş istedin */
     /* Okunurluk istersen: background: rgba(21,24,33,.92); backdrop-filter: blur(6px); */
     flex-direction: column; gap: 8px; padding: 12px; min-width: 180px;
     z-index: 9998;
   }
   .nav-links.active{ display: flex; }
 
-  .nav-links .link{
+  .nav-links a{
     color: #fff; padding: 10px 12px; border-radius: 8px;
-    background: rgba(27,31,43,.6); /* tamamen şeffaf istersen bu satırı silebilirsin */
+    background: rgba(27,31,43,.6); /* tam şeffaf istersen bu satırı silebilirsin */
   }
-  .nav-links .link:hover{ background: rgba(27,31,43,.8); }
+  .nav-links a:hover{ background: rgba(27,31,43,.8); }
+}
+
+/* ===== Arka plan açıkken ikon görünmüyorsa siyaha çevir ===== */
+/* Header'ın açık/şeffaf varyantına bir sınıf veriyorsan: .header.is-light gibi */
+.header.is-light .hamburger{ color: #000; }   /* ikon 3 çizgi siyah olur */
+
+/* Arka plan her zaman açık ise (beyaz sayfa, şeffaf header) doğrudan: */
+/* .hamburger{ color: #000; } */
+
+/* (Opsiyonel) Header koyu ise garanti olsun diye: */
+.header{ background: rgba(15,17,21,0.6); backdrop-filter: blur(10px); border-bottom: 1px solid #232634; }
+
+/* (Opsiyonel) Çakışmaları kırmak için: */
+.hamburger, .hamburger .line, .hamburger::before, .hamburger::after{ 
+  box-sizing: border-box;
 }
