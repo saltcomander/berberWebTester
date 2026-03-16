@@ -85,3 +85,70 @@ body{
   .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .menu { display: none; }  /* Basitçe menüyü gizle; sonra mobil menü ekleyebiliriz */
 }
+
+/* NAVBAR GENEL */
+.header{
+  position: sticky;
+  top: 0;
+  background: rgba(15,17,21,.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #232634;
+  z-index: 100;
+}
+.nav{
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* PC GÖRÜNÜMÜ */
+.nav-links{
+  display: flex;
+  gap: 18px;
+}
+.nav-links a{
+  color: var(--muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.nav-links a:hover{
+  background: #1b1f2b;
+  color: #fff;
+}
+
+/* HAMBURGER ICON */
+.hamburger{
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== MOBIL ===== */
+@media (max-width: 768px){
+
+  /* Menü başlangıçta gizli olacak */
+  .nav-links{
+    display: none;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    background: #151821;
+    flex-direction: column;
+    width: 180px;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.25);
+  }
+
+  .hamburger{
+    display: block;
+  }
+
+  /* Menü açıldığında */
+  .nav-links.active{
+    display: flex;
+  }
+}
