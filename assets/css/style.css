@@ -255,3 +255,9 @@ body{
   --muted: #a9afc3;
   --accent: #00d3a7;
 }
+
+/* Geçici test: hamburger’in tıklanabildiğini garanti et */
+.hamburger{
+  position: relative;
+  z-index: 9999;       /* her şeyin üstüne çıkar */
+}
