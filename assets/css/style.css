@@ -680,3 +680,92 @@ body{
 }
 
 
+
+
+/* — NAV konteynerleri — */
+.nav { position: relative; }          /* üst konteyner */
+.nav-actions { position: relative; }  /* ✅ hamburger+menü sarmalayıcı */
+
+/* — Mobil düzen — */
+@media (max-width: 768px){
+
+  /* Hamburger görünsün */
+  .hamburger{ display: inline-block; }
+
+  /* Açılır kutu: hamburgerin tam altına ve sağa hizala */
+  .nav-links{
+    position: absolute;
+    top: calc(100% + 8px);   /* hamburger butonunun ALTINA 8px boşlukla */
+    right: 0;                /* ✅ SAĞA HİZALI */
+    left: auto;              /* sola taşmayı engelle */
+    z-index: 9998;
+
+    /* Boyut: içerik kadar + sınırlar */
+    display: none;           /* .active ile açılacak */
+    width: max-content;
+    min-width: 180px;
+    max-width: 260px;
+    padding: 10px;
+    border-radius: 12px;
+
+    /* Blur + arka plan */
+    background: rgba(21, 24, 33, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+
+    /* İç hizalama */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    text-align: left;
+
+    /* ✅ Animasyon: sağdan kayarak gelsin */
+    opacity: 0;
+    transform: translateX(16px);   /* sağdan 16px içeri */
+    pointer-events: none;
+    transition: 
+      transform .20s ease,
+      opacity .20s ease;
+  }
+
+  /* Açılınca görünür + animasyon bitiş hali */
+  .nav-links.active{
+    display: flex;                /* görünür kıl */
+    opacity: 1;
+    transform: translateX(0);     /* sağdan → yerine */
+    pointer-events: auto;
+  }
+
+  /* Linkler: okunabilir, sola hizalı */
+  .nav-links a{
+    display: block;
+    padding: 10px 12px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.25;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  .nav-links a:hover,
+  .nav-links a:active{
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Uzarsa kaydırma güvenliği */
+  .nav-links{
+    max-height: calc(100dvh - 84px);
+    overflow: auto;
+  }
+}
+
+/* Blur desteklemeyen tarayıcılar için fallback (biraz daha opak yap) */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))){
+  @media (max-width: 768px){
+    .nav-links{ background: rgba(21, 24, 33, 0.92); }
+  }
+}
+
