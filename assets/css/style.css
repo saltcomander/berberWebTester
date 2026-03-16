@@ -152,3 +152,106 @@ body{
     display: flex;
   }
 }
+
+/* ===== NAVBAR GENEL ===== */
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15,17,21,0.6); /* üst bar hafif blur efekti */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #232634;
+}
+.nav{
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative; /* mobil menünün konumlandırması için referans */
+}
+
+.logo{
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: #fff;
+}
+.logo span{ color: var(--accent, #00d3a7); }
+
+/* Masaüstü menü */
+.nav-links{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.nav-links .link{
+  color: var(--muted, #a9afc3);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.nav-links .link:hover{
+  background: #1b1f2b;
+  color: #fff;
+}
+
+/* ===== HAMBURGER (3 çizgi) ===== */
+.hamburger{
+  display: none;            /* masaüstünde gizli */
+  background: transparent;  /* arkası boş/şeffaf */
+  border: none;
+  padding: 8px;             /* dokunma alanı */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburger:focus-visible{
+  outline: 2px solid color-mix(in oklab, #fff 70%, #000 30%);
+  outline-offset: 2px;
+}
+.hamburger .bar{
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;     /* çizgiler beyaz */
+  margin: 4px 0;        /* çizgiler arası boşluk */
+  border-radius: 2px;
+}
+
+/* ===== MOBİL DÜZEN ===== */
+@media (max-width: 768px){
+
+  /* Hamburger gösterilsin, masaüstü menüyü gizle */
+  .hamburger{ display: inline-block; }
+  .nav-links{
+    display: none;              /* başlangıçta kapalı */
+    position: absolute;
+    top: 64px;                  /* nav yüksekliği kadar aşağıda */
+    right: 0;
+    background: transparent;    /* arkası boş – kullanıcı isteği */
+    /* İstersen şeffaf da olsa okunurluk için blur panel kullanabilirsin:
+       background: rgba(21,24,33,0.85);
+       backdrop-filter: blur(6px);
+    */
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    min-width: 180px;
+  }
+
+  /* Açılınca görünür olsun */
+  .nav-links.active{ display: flex; }
+
+  /* Mobilde linkleri daha rahat dokunulacak yapalım */
+  .nav-links .link{
+    background: rgba(27,31,43,0.6); /* çok hafif koyu (istersen transparent bırak) */
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+  .nav-links .link:hover{
+    background: rgba(27,31,43,0.8);
+  }
+}
+
+/* — İsteğe bağlı: Tema değişkenin yoksa default verelim — */
+:root{
+  --muted: #a9afc3;
+  --accent: #00d3a7;
+}
