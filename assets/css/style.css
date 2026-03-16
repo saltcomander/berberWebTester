@@ -478,3 +478,31 @@ body{
 /* Açık header kullanıyorsan (beyaz zemin) */
 .header.is-light .logo-hand{ color: #111; }
 .header.is-light .logo-hand span{ color: #0aa389; }
+
+
+.logo-hand{
+    font-size: 30px; /* mobil ve normal */
+}
+
+@media (min-width: 768px){
+    .logo-hand{
+        font-size: 38px; /* PC */
+    }
+}
+
+@media (min-width: 1200px){
+    .logo-hand{
+        font-size: 42px; /* Geniş ekran PC */
+    }
+}
+
+
+.logo-hand{
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+@media (min-width: 1024px){
+  .logo-hand{
+    font-size: 40px;
+  }
+}
