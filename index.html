@@ -135,7 +135,21 @@
     </div>
   </footer>
 
-  <script src="./assets/js/main.js"></script>
+  
+  <script>
+    console.log("TEST: script çalıştı (inline)");
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    console.log("TEST: elemanlar", { hamburger, navLinks });
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        console.log("TEST: hamburger tıklandı");
+        navLinks.classList.toggle('active');
+      });
+    }
+</script>
+
 </body>
 </html>
 
