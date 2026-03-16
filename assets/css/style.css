@@ -506,3 +506,83 @@ body{
     font-size: 40px;
   }
 }
+
+
+/* ===== Mobil menü: arka plan blur + okunabilir linkler ===== */
+@media (max-width: 768px){
+
+  /* Menü paneli (açılır menü kutusu) */
+  .nav-links{
+    /* konum ve katman */
+    position: absolute;
+    top: 64px;
+    right: 8px;
+    z-index: 9998;
+
+    /* boyut/yerleşim */
+    display: none; /* .active olduğunda flex olacak */
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 10px;
+    min-width: 200px;
+    border-radius: 12px;
+
+    /* ARKA PLAN + BLUR (iOS için -webkit- ekledik) */
+    background: rgba(21, 24, 33, 0.78);           /* koyu, yarı şeffaf */
+    backdrop-filter: blur(10px);                  /* Chrome/Edge/Android */
+    -webkit-backdrop-filter: blur(10px);          /* iOS Safari */
+
+    /* çerçeve ve gölge */
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+  }
+
+  /* .active olunca görünür */
+  .nav-links.active{
+    display: flex;
+  }
+
+  /* Linkler: kontrast ve okunabilirlik */
+  .nav-links a{
+    color: #ffffff;                 /* beyaz yazı */
+    font-weight: 600;               /* daha tok */
+    padding: 10px 12px;
+    border-radius: 10px;
+    line-height: 1.25;
+    /* hafif arka plan; istersen tamamen şeffaf bırakabilirsin */
+    background: rgba(255, 255, 255, 0.04);
+    text-shadow: 0 1px 0 rgba(0,0,0,.4); /* koyu arka plan üzerinde okunurluk */
+  }
+
+  /* Hover/aktif durum (dokunmada da hissedilir) */
+  .nav-links a:hover,
+  .nav-links a:active{
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* (İsteğe bağlı) Linkler arasına ince ayraç */
+  .nav-links a + a{
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* (İsteğe bağlı) Çok uzun menüde kaydırma */
+  .nav-links{
+    max-height: calc(100dvh - 84px);
+    overflow: auto;
+  }
+
+  /* Eğer menü hâlâ arkadaki içerik yüzünden zor okunuyorsa,
+     paneli biraz daha opak yapabilirsin:
+     background: rgba(21, 24, 33, 0.88);
+  */
+}
+
+/* — Erişilebilirlik: BLUR desteklemeyen tarayıcılar için fallback —
+   (backdrop-filter desteklenmiyorsa biraz daha opak yap) */
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))){
+  @media (max-width: 768px){
+    .nav-links{
+      background: rgba(21,24,33,0.92);
+    }
+  }
+}
