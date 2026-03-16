@@ -17,16 +17,18 @@
   
 <header class="header">
   <div class="container nav">
+    <!-- Logo -->
+    <a href="#" class="logo">Mehmet <span>Barber</span></a>
 
-    <!-- LOGO -->
-    <a href="#" class="logo">Moda<span>Kuaför</span></a>
-
-    <!-- HAMBURGER (3 çizgi: pseudo-elements ile) -->
-    <button class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" aria-controls="nav-links" aria-expanded="false">
+    <!-- Hamburger (3 çizgi - pseudo elements ile) -->
+    <button class="hamburger" id="hamburger"
+            aria-label="Menüyü aç/kapat"
+            aria-controls="nav-links"
+            aria-expanded="false">
       <span class="line" aria-hidden="true"></span>
     </button>
 
-    <!-- MENÜ LINKLERİ -->
+    <!-- Menü linkleri -->
     <nav class="nav-links" id="nav-links" role="navigation">
       <a class="link" href="#hizmetler">Hizmetler</a>
       <a class="link" href="#fiyat">Fiyat</a>
@@ -135,17 +137,33 @@
 
   
   <script>
-    console.log("TEST: script çalıştı (inline)");
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    console.log("TEST: elemanlar", { hamburger, navLinks });
+  // Mobil hamburger menü: aç/kapa + dışarı tıkla kapat
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
 
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', () => {
-        console.log("TEST: hamburger tıklandı");
-        navLinks.classList.toggle('active');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = navLinks.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+        navLinks.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
-    }
+    });
+  } else {
+    console.warn("Hamburger veya nav-links bulunamadı. ID'leri kontrol et.");
+  }
 </script>
 
 </body>

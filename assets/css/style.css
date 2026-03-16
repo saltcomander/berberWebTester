@@ -337,3 +337,64 @@ body{
   }
   .nav-links a:hover{ background: rgba(27,31,43,.8); }
 }
+
+
+/* ===== NAVBAR RESET (garanti görünüm) ===== */
+.header{
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,17,21,0.6); backdrop-filter: blur(10px);
+  border-bottom: 1px solid #232634;
+}
+.nav{ height: 64px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+.logo{ font-weight: 800; color: #fff; text-decoration: none; }
+.logo span{ color: var(--accent, #00d3a7); }
+
+.nav-links{ display: flex; align-items: center; gap: 18px; }
+.nav-links .link{ color: var(--muted, #a9afc3); padding: 8px 10px; border-radius: 8px; text-decoration: none; }
+.nav-links .link:hover{ background: #1b1f2b; color: #fff; }
+
+/* HAMBURGER: pseudo-elements ile 3 çizgi */
+.hamburger{
+  display: none;        /* desktop'ta gizle */
+  position: relative;
+  width: 28px; height: 20px;
+  background: transparent; border: 0; padding: 0;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  z-index: 9999;
+}
+.hamburger .line,
+.hamburger::before,
+.hamburger::after{
+  content: ""; position: absolute; left: 0; right: 0;
+  height: 2.5px; background: #fff; border-radius: 2px;
+}
+.hamburger .line{ top: 50%; transform: translateY(-50%); } /* orta çizgi */
+.hamburger::before{ top: 0; }   /* üst çizgi */
+.hamburger::after{ bottom: 0; } /* alt çizgi */
+
+/* Desktop görünüm */
+@media (min-width: 769px){
+  .nav-links{ display: flex !important; }
+  .hamburger{ display: none !important; }
+}
+
+/* Mobil görünüm */
+@media (max-width: 768px){
+  .hamburger{ display: inline-block; }
+
+  .nav-links{
+    display: none;             /* kapalı başlar */
+    position: absolute; top: 64px; right: 8px;
+    background: transparent;   /* arkası boş */
+    /* Okunurluk istersen: background: rgba(21,24,33,.92); backdrop-filter: blur(6px); */
+    flex-direction: column; gap: 8px; padding: 12px; min-width: 180px;
+    z-index: 9998;
+  }
+  .nav-links.active{ display: flex; }
+
+  .nav-links .link{
+    color: #fff; padding: 10px 12px; border-radius: 8px;
+    background: rgba(27,31,43,.6); /* tamamen şeffaf istersen bu satırı silebilirsin */
+  }
+  .nav-links .link:hover{ background: rgba(27,31,43,.8); }
+}
