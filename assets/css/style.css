@@ -261,3 +261,79 @@ body{
   position: relative;
   z-index: 9999;       /* her şeyin üstüne çıkar */
 }
+
+
+/* ===== HAMBURGER: 3 çizgi pseudo-elements ile ===== */
+.hamburger{
+  /* masaüstünde gizlenecek; mobilde göstereceğiz */
+  display: none; 
+  position: relative;
+  width: 28px;         /* çizgi genişliği */
+  height: 20px;        /* toplam ikon yüksekliği */
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  z-index: 9999;       /* üstte dursun (tıklanabilirlik için) */
+}
+
+/* Orta çizgi */
+.hamburger .line,
+.hamburger::before,
+.hamburger::after{
+  content: "";
+  position: absolute;
+  left: 0; 
+  right: 0;
+  height: 2.5px;       /* çizgi kalınlığı */
+  background: #fff;    /* çizgi rengi */
+  border-radius: 2px;
+}
+
+/* Orta çizgi tam ortada */
+.hamburger .line{ top: 50%; transform: translateY(-50%); }
+
+/* Üst çizgi */
+.hamburger::before{ top: 0; }
+
+/* Alt çizgi */
+.hamburger::after{ bottom: 0; }
+
+/* NAV ligleri desktop'ta dursun, hamburger gizli kalsın */
+@media (min-width: 769px){
+  .nav-links{ display: flex !important; align-items: center; gap: 18px; }
+  .hamburger{ display: none !important; }
+}
+
+/* NAV mobil düzen: hamburger görünsün, menü kapalı başlasın */
+@media (max-width: 768px){
+  .hamburger{ display: inline-block; }
+
+  .nav-links{
+    display: none;              /* kapalı başlar */
+    position: absolute;
+    top: 64px;
+    right: 8px;
+    background: transparent;    /* arkası boş istedin */
+    /* Eğer okunurluk istersek: 
+       background: rgba(21,24,33,.92); backdrop-filter: blur(6px);
+    */
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    min-width: 180px;
+    z-index: 9998;
+  }
+  .nav-links.active{ display: flex; }
+
+  /* Mobil linkler biraz rahat tıklansın */
+  .nav-links a{
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(27,31,43,.6); /* istersen transparent bırak */
+  }
+  .nav-links a:hover{ background: rgba(27,31,43,.8); }
+}
