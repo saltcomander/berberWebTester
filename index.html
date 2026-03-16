@@ -40,13 +40,24 @@
     </a>
 
 
-    <!-- Hamburger (3 çizgi - pseudo elements ile) -->
-    <button class="hamburger" id="hamburger"
-            aria-label="Menüyü aç/kapat"
-            aria-controls="nav-links"
-            aria-expanded="false">
-      <span class="line" aria-hidden="true"></span>
-    </button>
+    
+<!-- ✅ SARMALAYICI: hamburger + menü -->
+    <div class="nav-actions">
+      <!-- HAMBURGER -->
+      <button class="hamburger" id="hamburger" aria-controls="nav-links" aria-expanded="false" aria-label="Menüyü aç/kapat">
+        <span class="line" aria-hidden="true"></span>
+      </button>
+
+    
+      <!-- MENÜ (açılır kutu) -->
+      <nav class="nav-links" id="nav-links" role="navigation">
+        #hizmetlerHizmetler</a>
+        #fiyatFiyat</a>
+        #galeriGaleri</a>
+        #iletisimİletişim</a>
+      </nav>
+
+
 
     <!-- Menü linkleri -->
     <nav class="nav-links" id="nav-links" role="navigation">
